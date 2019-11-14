@@ -40,6 +40,20 @@ formEl.addEventListener('submit', function (ev) {
     // rebuildList(postsEl, posts);
     urlEl.value = '';
     textEl.value = '';
+    el.querySelector('[data-action=like]').addEventListener('click', function (event) {
+        item.likes++;
+        items.sort(function (a, b) {
+            return -(a.likes - b.likes);
+
+        });
+        rebuildList(containerEl, items)
+    });
+    el.querySelector('[data-action=dislike]').addEventListener('click', function (event) {
+        item.likes--;
+        items.sort(function (a, b) {
+            return -(a.likes - b.likes);
+        });
+        rebuildList(containerEl, items)
     rebuildList(postsEl, posts);
     urlEl.focus();
 });
@@ -83,28 +97,31 @@ function rebuildList(containerEl, items) {
             <button type="button" class="btn btn-primary btn-sm" data-action="like">like</button>
             <button type="button" class="btn btn-primary btn-sm" data-action="dislike">dislike</button>
             `
-        } else if(item.type === 'regular') {
+        } else if (item.type === 'regular') {
             el.innerHTML = `
             <div class="rounded">${item.url}</div>
-            ${item.text} 
+            ${item.text}
             <span class="badge badge-secondary">${item.likes}</span>
             <button type="button" class="btn btn-primary btn-sm" data-action="like">like</button>
             <button type="button" class="btn btn-primary btn-sm" data-action="dislike">dislike</button>
             `
         }
 
+
+    
+
         el.querySelector('[data-action=like]').addEventListener('click', function (event) {
             item.likes++;
-            items.sort(function (a, b)  {
-                return a.likes - b.likes;
+            items.sort(function (a, b) {
+                return -(a.likes - b.likes);
 
             });
             rebuildList(containerEl, items)
         });
         el.querySelector('[data-action=dislike]').addEventListener('click', function (event) {
             item.likes--;
-            items.sort( function (a, b) {
-                return a.likes - b.likes;
+            items.sort(function (a, b) {
+                return -(a.likes - b.likes);
             });
             rebuildList(containerEl, items)
         });
