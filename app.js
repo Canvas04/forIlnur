@@ -5,12 +5,12 @@ let nextId = 1;
 const rootEl = document.getElementById('root');
 
 const formEl = document.createElement('form');
-formEl.className = 'form-inline mb-2';
+formEl.className = 'form-inline';
 
 formEl.innerHTML = `
-<input type="text" class="form mb-2 mr-sm-2" data-id="url" >
-<input type="text" class="form mb-2 mr-sm-2" data-id="text">
-<select class="custom-select" data-id="type">
+<input type="text" class="form-control mb-2 mr-sm-2" data-id="url" >
+<input type="text" class="form-control mb-2 mr-sm-2" data-id="text">
+<select  class="form-control"  data-id="type">
 <option value="regular">Обычный</option>
 <option value="image">Изображение</option>
 <option value="audio">Аудио</option>
@@ -40,20 +40,10 @@ formEl.addEventListener('submit', function (ev) {
     // rebuildList(postsEl, posts);
     urlEl.value = '';
     textEl.value = '';
-    el.querySelector('[data-action=like]').addEventListener('click', function (event) {
-        item.likes++;
-        items.sort(function (a, b) {
-            return -(a.likes - b.likes);
-
-        });
-        rebuildList(containerEl, items)
+    posts.sort((a, b) => {
+        return -(a.likes - b.likes);
     });
-    el.querySelector('[data-action=dislike]').addEventListener('click', function (event) {
-        item.likes--;
-        items.sort(function (a, b) {
-            return -(a.likes - b.likes);
-        });
-        rebuildList(containerEl, items)
+   
     rebuildList(postsEl, posts);
     urlEl.focus();
 });
@@ -106,10 +96,6 @@ function rebuildList(containerEl, items) {
             <button type="button" class="btn btn-primary btn-sm" data-action="dislike">dislike</button>
             `
         }
-
-
-    
-
         el.querySelector('[data-action=like]').addEventListener('click', function (event) {
             item.likes++;
             items.sort(function (a, b) {
